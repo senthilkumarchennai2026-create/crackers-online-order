@@ -84,8 +84,17 @@
     position:sticky;
     top:0;
     z-index:20;
-    padding:16px 0 10px;
+    padding:14px 0 10px;
     border-bottom:1px solid var(--line);
+  }
+  .tabs-prompt{
+    text-align:center;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:600;
+    font-size:14px;
+    color:var(--primary);
+    margin:0 0 10px;
+    padding:0 16px;
   }
   .tabs{
     display:flex;
@@ -165,8 +174,8 @@
     font-size:20px;
   }
   .item-info{flex:1 1 auto;min-width:0;}
-  .item-name{font-weight:600;font-size:14.5px;color:var(--ink);line-height:1.3;}
-  .item-pack{font-size:12px;color:var(--muted);margin-top:2px;}
+  .item-name{font-weight:700;font-size:16.5px;color:var(--ink);line-height:1.3;}
+  .item-pack{font-size:13px;color:var(--muted);margin-top:2px;}
   .item-price{
     flex:0 0 auto;
     text-align:right;
@@ -304,7 +313,7 @@
     font-size:13.5px;
     gap:10px;
   }
-  .review-row .rr-name{font-weight:600;flex:1;}
+  .review-row .rr-name{font-weight:700;font-size:15.5px;flex:1;}
   .review-row .rr-meta{color:var(--muted);font-size:12px;}
   .review-row .rr-total{font-weight:700;color:var(--secondary);min-width:60px;text-align:right;}
   .rr-remove{
@@ -339,7 +348,7 @@
 </head>
 <body>
 
-<div class="demo-banner">This is a <strong>concept demo</strong> for the proposed Online Order page — not part of the live site. Sample categories & prices shown for illustration only.</div>
+<div class="demo-banner">This is a <strong>concept demo</strong> for the proposed Online Order page — not part of the live site. Prices shown are current price list for testing. VIP &amp; Family Combo Packs category pending, not shown yet.</div>
 
 <div class="hero">
   <span class="eyebrow">Prototype · Not Live</span>
@@ -348,6 +357,7 @@
 </div>
 
 <div class="tabs-outer">
+  <p class="tabs-prompt">👇 Pick a cracker type below to start ordering</p>
   <div class="tabs" id="tabs"></div>
 </div>
 
@@ -390,83 +400,227 @@ const MIN_ORDER = 3000;
 
 const categories = [
   {
-    id:"sound", name:"Sound Crackers", short:"🧨 Sound", icon:"🧨",
+    id:"sound", name:"Sound Crackers", short:"🧨 Sound Crackers", icon:"🧨",
     groups:[
       { group:"One Sound Crackers", items:[
-        {name:"2.75\" Kuruvi Crackers", pack:"1 pkt (5 pcs)", was:40, now:8},
-        {name:"3.5\" Lakshmi Crackers", pack:"1 pkt (5 pcs)", was:70, now:14},
-        {name:"Gold Lakshmi Deluxe", pack:"1 pkt (5 pcs)", was:170, now:34},
+        {name:"2¾\" Kuruvi", pack:"pkt (5 pcs)", was:50, now:10},
+        {name:"3½\" Lakshmi", pack:"pkt (5 pcs)", was:100, now:20},
+        {name:"4\" Lakshmi", pack:"pkt (5 pcs)", was:120, now:24},
+        {name:"4\" Lakshmi Deluxe", pack:"pkt (5 pcs)", was:180, now:36},
+        {name:"Gold Lakshmi", pack:"pkt (5 pcs)", was:220, now:44},
+        {name:"2 Sound Blast", pack:"pkt (5 pcs)", was:240, now:48},
+        {name:"5\" Super Deluxe Special", pack:"pkt (5 pcs)", was:260, now:52},
+        {name:"6\" Yanai Vedi", pack:"pkt (5 pcs)", was:320, now:64},
+      ]},
+      { group:"Blast Bomb", items:[
+        {name:"Bullet Bomb", pack:"box (10 pcs)", was:150, now:30},
+        {name:"Mega Bullet Bomb", pack:"box (10 pcs)", was:320, now:64},
+        {name:"Hydro Bomb", pack:"box (10 pcs)", was:430, now:86},
+        {name:"King of King", pack:"box (10 pcs)", was:500, now:100},
+        {name:"Classic Bomb", pack:"box (10 pcs)", was:700, now:140},
+        {name:"Ultra Bomb", pack:"box (10 pcs)", was:900, now:180},
+        {name:"Digital Bomb", pack:"box (10 pcs)", was:1200, now:240},
+        {name:"Rider Bomb", pack:"box (10 pcs)", was:1600, now:320},
+      ]},
+      { group:"Paper Bomb", items:[
+        {name:"1/4 Kg Adiyal", pack:"box (1 pc)", was:220, now:44},
+        {name:"1/2 Kg Adiyal", pack:"box (1 pc)", was:440, now:88},
+        {name:"1 Kg Adiyal", pack:"box (1 pc)", was:880, now:176},
+        {name:"Hacker Bomb", pack:"box (1 pc)", was:200, now:40},
+        {name:"Hacker Bomb", pack:"box (10 pcs)", was:1900, now:380},
       ]},
       { group:"Repeating Bijili", items:[
-        {name:"Red Bijili", pack:"box (5 pcs)", was:180, now:36},
-        {name:"5\" Hulk / Vikram Mega Deluxe", pack:"1 pkt (5 pcs)", was:225, now:45},
+        {name:"Bijili Red", pack:"bag (50 pcs)", was:100, now:20},
+        {name:"Bijili Red", pack:"bag (100 pcs)", was:200, now:40},
+        {name:"Bijili Kakki", pack:"bag (50 pcs)", was:140, now:28},
+        {name:"Bijili Kakki", pack:"bag (100 pcs)", was:220, now:44},
+        {name:"100 Watts", pack:"box (1 pc)", was:220, now:44},
+        {name:"1000 Watts", pack:"box (1 pc)", was:1000, now:200},
+        {name:"2000 Watts", pack:"box (1 pc)", was:2000, now:400},
+        {name:"5000 Watts", pack:"box (1 pc)", was:5000, now:1000},
+        {name:"10000 Watts", pack:"box (1 pc)", was:10000, now:2000},
+        {name:"1000 Watts Special", pack:"box (1 pc)", was:1800, now:360},
+        {name:"2000 Watts Special", pack:"box (1 pc)", was:3600, now:720},
+        {name:"5000 Watts Special", pack:"box (1 pc)", was:9000, now:1800},
       ]}
     ]
   },
   {
     id:"sparklers", name:"Sparklers & Fountains", short:"✨ Sparklers", icon:"✨",
     groups:[
-      { group:"Hand Sparklers", items:[
-        {name:"7cm Electric Sparklers", pack:"box (10 pcs)", was:120, now:24},
-        {name:"10cm Colour Sparklers", pack:"box (10 pcs)", was:250, now:50},
+      { group:"Sparklers", items:[
+        {name:"10cm Electric", pack:"box (10 pcs)", was:90, now:18},
+        {name:"10cm Crackling", pack:"box (10 pcs)", was:130, now:26},
+        {name:"10cm Green", pack:"box (10 pcs)", was:160, now:32},
+        {name:"10cm Red", pack:"box (10 pcs)", was:170, now:34},
+        {name:"15cm Electric", pack:"box (10 pcs)", was:220, now:44},
+        {name:"15cm Crackling", pack:"box (10 pcs)", was:250, now:50},
+        {name:"15cm Green", pack:"box (10 pcs)", was:300, now:60},
+        {name:"15cm Red", pack:"box (10 pcs)", was:360, now:72},
+        {name:"30cm Electric", pack:"box (5 pcs)", was:220, now:44},
+        {name:"30cm Crackling", pack:"box (5 pcs)", was:250, now:50},
+        {name:"30cm Green", pack:"box (5 pcs)", was:300, now:60},
+        {name:"30cm Red", pack:"box (5 pcs)", was:360, now:72},
+        {name:"50cm Electric", pack:"box (5 pcs)", was:800, now:160},
+        {name:"50cm Colour", pack:"box (5 pcs)", was:900, now:180},
+        {name:"50cm Multi Colour", pack:"box (5 pcs)", was:1100, now:220},
+        {name:"Rotating Sparkler", pack:"box (1 pc)", was:1400, now:280},
       ]},
-      { group:"Premium Fountains", items:[
-        {name:"Flower Pot Special Prime", pack:"box (10 pcs)", was:600, now:120},
-        {name:"Flower Pot Giant Prime", pack:"box (10 pcs)", was:875, now:175},
-        {name:"Tri Colour Fountain", pack:"box (5 pcs)", was:995, now:199},
+      { group:"Fountains", items:[
+        {name:"Crackling Tree", pack:"box (3 pcs)", was:1800, now:360},
+        {name:"4\" Special (Silver Tree)", pack:"box (1 pc)", was:450, now:90},
+        {name:"4\" Fountain (Tri Colour)", pack:"box (1 pc)", was:450, now:90},
+        {name:"Magical Siren", pack:"box (3 pcs)", was:900, now:180},
+        {name:"Peacock Feathers", pack:"box (5 pcs)", was:450, now:90},
+        {name:"Golden Drops", pack:"box (5 pcs)", was:450, now:90},
+        {name:"Rock Star Fountain", pack:"box (1 pc)", was:480, now:96},
+        {name:"Tirumalai 2-Step Fountain", pack:"box (1 pc)", was:750, now:150},
+        {name:"Special Shower 5-in-1", pack:"box (5 pcs)", was:480, now:96},
+        {name:"Sky Shot Special", pack:"box (10 pcs)", was:700, now:140},
       ]}
     ]
   },
   {
-    id:"fancy", name:"Fancy Crackers", short:"🎇 Fancy", icon:"🎇",
+    id:"fancy", name:"Fancy Crackers", short:"🎇 Fancy Crackers", icon:"🎇",
     groups:[
-      { group:"Fancy Pipes", items:[
-        {name:"3.5\" Fancy Pipe (4 Variety)", pack:"box (1 pc)", was:2750, now:550},
-        {name:"City Jumper - 7 Ball", pack:"box (2 pcs)", was:7000, now:1400},
+      { group:"Chota Fancy", items:[
+        {name:"Fighter Knife", pack:"box (1 pc)", was:240, now:48},
+        {name:"King Of All", pack:"box (1 pc)", was:240, now:48},
+        {name:"Red Hots", pack:"box (1 pc)", was:240, now:48},
+        {name:"Thunder Shower", pack:"box (1 pc)", was:240, now:48},
+        {name:"Sky Shot Crackling", pack:"box (1 pc)", was:100, now:20},
+        {name:"Hero Sky Shot", pack:"box (2 pcs)", was:250, now:50},
       ]},
-      { group:"Sky Wonders", items:[
-        {name:"4\" Twelve Balls - 12 Steps", pack:"box (1 pc)", was:4500, now:900},
-        {name:"6\" Yellow Prime", pack:"box (1 pc)", was:8750, now:1750},
+      { group:"Fancy Single Shots", items:[
+        {name:"2\" Fancy Pipe (4 Varieties)", pack:"box (1 pc)", was:430, now:86},
+        {name:"2\" Special - 3 Step", pack:"box (3 pcs)", was:1800, now:360},
+        {name:"2\" Fancy (3 pcs)", pack:"box (3 pcs)", was:1400, now:280},
+        {name:"2½\" Fancy Pipes (5 Varieties)", pack:"box (1 pc)", was:800, now:160},
+      ]},
+      { group:"3.5\" Fancy Sky Wonders", items:[
+        {name:"3.5\" Fancy Pipe (4 Varieties)", pack:"box (1 pc)", was:1400, now:280},
+        {name:"3.5\" Nayagara Sol", pack:"box (1 pc)", was:1600, now:320},
+        {name:"3.5\" Double Ball Special", pack:"box (1 pc)", was:2400, now:480},
+        {name:"3.5\" Double Pack", pack:"box (2 pcs)", was:2600, now:520},
+      ]},
+      { group:"4\" Fancy Sky Wonders", items:[
+        {name:"4\" Fancy Pipe (4 Varieties)", pack:"box (1 pc)", was:1400, now:280},
+        {name:"4\" Nayagara Sol", pack:"box (1 pc)", was:1600, now:320},
+        {name:"4\" Double Ball Special", pack:"box (1 pc)", was:2400, now:480},
+        {name:"4\" Double Pack", pack:"box (2 pcs)", was:2600, now:520},
+        {name:"4\" Seven Steps Special", pack:"box (1 pc)", was:2200, now:440},
+      ]},
+      { group:"Multi Colour Budget Thunders", items:[
+        {name:"30 Shot Multi Colour", pack:"box (1 pc)", was:1850, now:370},
+        {name:"60 Shot Multi Colour", pack:"box (1 pc)", was:3700, now:740},
+        {name:"120 Shot Multi Colour", pack:"box (1 pc)", was:7500, now:1500},
+        {name:"30 Shot Peacock Dance", pack:"box (1 pc)", was:2000, now:400},
+      ]},
+      { group:"Multi Colour Brand Thunders", items:[
+        {name:"7 Shot Colour", pack:"box (5 pcs)", was:600, now:120},
+        {name:"12 Shot Rider", pack:"box (1 pc)", was:800, now:160},
+        {name:"12 Shot Sizzling", pack:"box (1 pc)", was:1000, now:200},
+        {name:"12 Shot Special", pack:"box (1 pc)", was:1100, now:220},
+        {name:"30 Shot Multi Colour", pack:"box (1 pc)", was:2000, now:400},
+        {name:"60 Shot Multi Colour", pack:"box (1 pc)", was:4000, now:800},
+        {name:"120 Shot Multi Colour", pack:"box (1 pc)", was:8000, now:1600},
+        {name:"240 Shot Multi Colour", pack:"box (1 pc)", was:16000, now:3200},
+      ]},
+      { group:"Beautiful Sky", items:[
+        {name:"Sizzling Celebration 5×10", pack:"box (1 pc)", was:12000, now:2400},
+        {name:"Sizzling Celebration 10×10", pack:"box (1 pc)", was:22000, now:4400},
       ]}
     ]
   },
   {
-    id:"rockets", name:"Rockets & Sky Shots", short:"🚀 Rockets", icon:"🚀",
+    id:"flowerpot", name:"Flower Pot & Chakkar", short:"🪔 Flower Pot & Chakkar", icon:"🪔",
     groups:[
-      { group:"ISRO Launchers", items:[
-        {name:"Rocket Bomb", pack:"box (10 pcs)", was:750, now:150},
-        {name:"Whistling Rocket", pack:"box (5 pcs)", was:1000, now:200},
+      { group:"Flower Pot", items:[
+        {name:"Flower Pot Small", pack:"box (10 pcs)", was:360, now:72},
+        {name:"Flower Pot Big", pack:"box (10 pcs)", was:480, now:96},
+        {name:"Flower Pot Special", pack:"box (10 pcs)", was:680, now:136},
+        {name:"Flower Pot Asoka", pack:"box (10 pcs)", was:860, now:172},
+        {name:"Colour Koti", pack:"box (10 pcs)", was:1200, now:240},
+        {name:"Colour Koti Deluxe", pack:"box (10 pcs)", was:1900, now:380},
       ]},
-      { group:"Colour Shots", items:[
-        {name:"30 Shot Multi Colour", pack:"box (1 pc)", was:2750, now:550},
-        {name:"60 Shot Multi Colour", pack:"box (1 pc)", was:5500, now:1100},
-        {name:"Magical Peacock - 5 Face", pack:"box (1 pc)", was:1000, now:200},
+      { group:"Chakkar", items:[
+        {name:"Ground Chakkar Big", pack:"box (10 pcs)", was:200, now:40},
+        {name:"Ground Chakkar Special", pack:"box (10 pcs)", was:400, now:80},
+        {name:"Ground Chakkar Deluxe", pack:"box (10 pcs)", was:650, now:130},
+        {name:"Chakkar Special (Plastic)", pack:"box (10 pcs)", was:800, now:160},
+        {name:"Chakkar Special (Plastic) — Variant 2", pack:"box (10 pcs)", was:900, now:180},
+        {name:"Disco Wheel", pack:"box (5 pcs)", was:350, now:70},
+        {name:"Twin Wheel", pack:"box (5 pcs)", was:400, now:80},
+        {name:"Wire Chakkar", pack:"box (10 pcs)", was:900, now:180},
+      ]},
+      { group:"Rockets", items:[
+        {name:"Rocket Bomb", pack:"box (10 pcs)", was:360, now:72},
+        {name:"Lunik Rocket", pack:"box (10 pcs)", was:500, now:100},
+        {name:"Whistle Rocket", pack:"box (10 pcs)", was:800, now:160},
       ]}
     ]
   },
   {
-    id:"kids", name:"Kids Gift Boxes", short:"🎁 Kids", icon:"🎁",
+    id:"kids", name:"Kids Special", short:"🎉 Kids Special", icon:"🎉",
     groups:[
-      { group:"Gift Box Range", items:[
+      { group:"Premium Novelty", items:[
+        {name:"90 Watts", pack:"box (3 pcs)", was:600, now:120},
+        {name:"Dora Singer", pack:"box (5 pcs)", was:580, now:116},
+        {name:"Top Gun", pack:"box (5 pcs)", was:900, now:180},
+        {name:"6\" Water Queen", pack:"1 box", was:800, now:160},
+        {name:"Shin Chan", pack:"box (5 pcs)", was:500, now:100},
+        {name:"Pistol 5G", pack:"box (2 pcs)", was:1100, now:220},
+        {name:"Bada Peacock", pack:"1 box", was:1500, now:300},
+        {name:"Madurai Malli", pack:"box (3 pcs)", was:1100, now:220},
+        {name:"Block Money", pack:"box (5 pcs)", was:1500, now:300},
+        {name:"Emu Egg", pack:"box (2 pcs)", was:1800, now:360},
+        {name:"Golden Flower", pack:"box (10 pcs)", was:500, now:100},
+        {name:"Kungfu Deluxe", pack:"box (1 pc)", was:400, now:80},
+        {name:"Colour Smoke", pack:"box (3 pcs)", was:600, now:120},
+        {name:"Money Bank", pack:"box (3 pcs)", was:550, now:110},
+        {name:"Money Bank", pack:"box (1 pc)", was:200, now:40},
+        {name:"Gun + 5 Ring Cap", pack:"box (1 pc)", was:500, now:100},
+      ]},
+      { group:"Peacock", items:[
+        {name:"Magical Peacock", pack:"box (1 pc)", was:750, now:150},
+        {name:"Peacock Special", pack:"box (1 pc)", was:960, now:192},
+        {name:"Bada Peacock (5 Face)", pack:"box (1 pc)", was:2200, now:440},
+      ]},
+      { group:"Colour Flash", items:[
+        {name:"Colour Changing Butterfly", pack:"box (10 pcs)", was:400, now:80},
+        {name:"Helicopter - In The Sky", pack:"box (5 pcs)", was:460, now:92},
+        {name:"Drone Nights", pack:"box (5 pcs)", was:560, now:112},
+        {name:"Bambaram Speed Max", pack:"box (10 pcs)", was:580, now:116},
+        {name:"Photo Flash Insta Flash", pack:"box (5 pcs)", was:260, now:52},
+        {name:"Selfie Stick", pack:"box (3 pcs)", was:280, now:56},
+        {name:"Kit Kat / Chit Put", pack:"box (10 pcs)", was:200, now:40},
+        {name:"Electric Stone", pack:"box (10 pcs)", was:120, now:24},
+        {name:"Magic Pops", pack:"box (10 pcs)", was:100, now:20},
+        {name:"Snake Tablets", pack:"box (50 pcs)", was:300, now:60},
+        {name:"Lolly Pop Special", pack:"box (5 pcs)", was:800, now:160},
+        {name:"Cartoon", pack:"box (10 pcs)", was:180, now:36},
+        {name:"Zee Boom Baa", pack:"box (10 pcs)", was:100, now:20},
+      ]},
+      { group:"Match Box", items:[
+        {name:"Robin Super Deluxe", pack:"box (10 pcs)", was:300, now:60},
+        {name:"Robin 7up Rainbow", pack:"box (10 pcs)", was:900, now:180},
+        {name:"Robin 10-in-1 Laptop", pack:"box (10 pcs)", was:1200, now:240},
+      ]},
+      { group:"Colour Pencils", items:[
+        {name:"Amazing Pencil", pack:"box (3 pcs)", was:500, now:100},
+        {name:"Old Is Gold", pack:"box (25 pcs)", was:650, now:130},
+      ]}
+    ]
+  },
+  {
+    id:"giftbox", name:"Gift Box", short:"🎁 Gift Box", icon:"🎁", placeholder:true,
+    groups:[
+      { group:"Gift Box Range (sample — pending real price list)", items:[
         {name:"21 Items Gift Box", pack:"box", was:1000, now:200},
         {name:"27 Items Gift Box", pack:"box", was:1250, now:250},
         {name:"35 Items Gift Box", pack:"box", was:1750, now:350},
         {name:"45 Items Gift Box", pack:"box", was:2750, now:550},
         {name:"50 Items Gift Box", pack:"box", was:5000, now:1000},
-      ]}
-    ]
-  },
-  {
-    id:"combo", name:"VIP & Family Combo Packs", short:"👑 Combos", icon:"👑",
-    groups:[
-      { group:"Family Combos", items:[
-        {name:"Family Combo - Small", pack:"1 combo pack", was:2500, now:500},
-        {name:"Family Combo - Medium", pack:"1 combo pack", was:5000, now:1000},
-      ]},
-      { group:"VIP Combos", items:[
-        {name:"VIP Combo - Grand", pack:"1 combo pack", was:10000, now:2000},
-        {name:"VIP Combo - Deluxe", pack:"1 combo pack", was:15000, now:3000},
-        {name:"Festival Special Combo", pack:"1 combo pack", was:20000, now:4000},
       ]}
     ]
   }
@@ -527,9 +681,13 @@ function buildTabsAndPanels(){
       groupsHtml += `<div class="group-banner">${grp.group}</div>${rowsHtml}`;
     });
 
+    const subText = cat.placeholder
+      ? "Sample items shown for demo — real price list for this category is pending."
+      : "Prices shown are current — pick your quantities below.";
+
     panel.innerHTML = `
       <h2 class="panel-title">${cat.icon} ${cat.name}</h2>
-      <p class="panel-sub">Sample items shown for demo — full catalogue will list every product and sub-group in this category.</p>
+      <p class="panel-sub">${subText}</p>
       ${groupsHtml}
     `;
     panelsEl.appendChild(panel);
@@ -606,7 +764,7 @@ function openReview(){
       <div class="review-row">
         <div>
           <div class="rr-name">${e.name}</div>
-          <div class="rr-meta">${e.catName} · ${e.pack} · Qty ${e.qty} × ${fmt(e.unit)}</div>
+          <div class="rr-meta">${e.pack} · Qty ${e.qty} × ${fmt(e.unit)}</div>
         </div>
         <div class="rr-total">${fmt(e.total)}</div>
         <button class="rr-remove" onclick="removeFromReview('${e.key}')">Remove</button>
